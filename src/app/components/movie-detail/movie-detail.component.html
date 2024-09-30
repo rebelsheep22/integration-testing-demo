@@ -1,0 +1,28 @@
+<div class="movie-details" *ngIf="movie">
+    <h2>{{ movie.title }}</h2>
+    
+    <div class="reviews-section">
+      <p *ngIf="movie.reviews.length > 0" class="average-rating">Average Rating: {{ calculateAverageRating(movie) }} / 5</p>
+      <ul *ngIf="movie.reviews.length > 0">
+        <li *ngFor="let review of movie.reviews" class="review-item">
+          <span class="review-user">{{ review.user }} ({{ review.rating }} stars): </span>
+          <p class="review-comment">{{ review.comment }}</p>
+        </li>
+      </ul>
+      <p *ngIf="movie.reviews.length === 0">No reviews yet.</p>
+    </div>
+  
+    <form class="review-form" (ngSubmit)="submitReview()">
+      <div class="form-group">
+        <input type="text" [(ngModel)]="newReview.user" placeholder="Your name" name="user" required class="form-input" />
+      </div>
+      <div class="form-group">
+        <input type="number" [(ngModel)]="newReview.rating" placeholder="Rating (1-5)" name="rating" required min="1" max="5" class="form-input" />
+      </div>
+      <div class="form-group">
+        <input type="text" [(ngModel)]="newReview.comment" placeholder="Comment" name="comment" class="form-input" />
+      </div>
+      <button type="submit" class="submit-button">Submit Review</button>
+    </form>
+  </div>
+  

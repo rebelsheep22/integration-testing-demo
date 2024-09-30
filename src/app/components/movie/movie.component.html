@@ -1,0 +1,19 @@
+<h1 class="header">Movie Review App</h1>
+<app-search (searchChange)="onSearch($event)"></app-search>
+<div class="movie-list-container" *ngIf="!isLoading && !hasError">
+  <div
+    *ngFor="let movie of movies"
+    (click)="selectMovie(movie.id)"
+    class="movie-card"
+  >
+    <h2 class="movie-title">{{ movie.title }}</h2>
+    <p class="movie-rating" *ngIf="movie.reviews.length > 0">
+      Average Rating: {{ calculateAverageRating(movie) }} / 5
+    </p>
+    <p *ngIf="movie.reviews.length === 0" class="review">No reviews yet.</p>
+  </div>
+</div>
+
+<div class="movie-details-section" *ngIf="selectedMovieId">
+  <app-movie-details [movieId$]="movieId$"></app-movie-details>
+</div>
